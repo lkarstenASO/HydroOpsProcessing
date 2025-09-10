@@ -12,11 +12,11 @@ class analysisMeta:
         """
         self.runFlag = False
         self.keyValue = None
-        self.dt = None
         self.cloudFlag = None
         self.ftpFlag = None
         self.httpFlag = None
         self.sourceFtpDir = None
+        self.topCloudOutDir = None
 
         productKeys = {
             "SNODAS": 1
@@ -32,8 +32,14 @@ class analysisMeta:
         timesteps = {
             1: 86400
         }
-        self.dt = timesteps[self.keyValue]
-        dateObj.analysisDt = self.dt
+        dateObj.analysisDt = timesteps[self.keyValue]
+
+        # For any product, we need to introduce a lag time from present going back when we expect
+        # data to start showing up. 
+        lagtime = {
+            1: 86400
+        }
+        dateObj.analysisLagDt = lagtime[self.keyValue]
 
         cloudFlags = {
             1: False
@@ -49,3 +55,11 @@ class analysisMeta:
             1: "ftp://sidads.colorado.edu/DATASETS/NOAA/G02158/masked"
         }
         self.sourceFtpDir = upstreamFtp[self.keyValue]
+
+        topCloudDirs = {
+            1: "Snow_Data/SNODAS"
+        }
+        self.topCloudOutDir = topCloudDirs[self.keyValue]
+
+        # Calculate the number of steps we are processing 
+        dateObj.calcAnalysisInfo()

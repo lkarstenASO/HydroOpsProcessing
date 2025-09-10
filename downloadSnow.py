@@ -11,6 +11,7 @@ import sys
 from Core import dateMod
 from Core import ioMod
 from Core import configMod
+from Core import errMod
 
 def main():
     """
@@ -32,13 +33,14 @@ def main():
     parser.add_argument('-l','--lookBack', type=int, nargs='?', help='Lookback of processing in hours')
     parser.add_argument('-b','--begDate', type=str, nargs='?', help='Beginning date of processing window in YYYYMMDDHH format')
     parser.add_argument('-e','--endDate', type=str, nargs='?', help='Ending date of processing window in YYYYMMDDHH format')
-    parser.add_argument('-hy','--hydroInspector', action='store_true', help='Process data for HydroInspector to local disk? True/False')
+    parser.add_argument('-hy','--hydroInspector', action='store_true', help='Process data for HydroInspector to local disk?')
+    parser.add_argument('-slack','--slack', action='store_true', help='Disseminate error messages to Slack?')
 
     # Parse our arguments
     args = parser.parse_args()
 
     # Initialize our cloud storage object
-    ioObj = ioMod.ioObj()
+    ioObj = ioMod.ioObj(args)
 
     # Sanity checking
     if args.scratchDir is None:
@@ -67,6 +69,14 @@ def main():
 
     # Initialize our metadata objects depending on what argument was provided. 
     analysisMeta = configMod.analysisMeta(args.product[0], dateObj)
+
+    # Initialize our error module, which will post messages and error gracefully when needed. 
+    errObj = errMod.errConfig(args)
+    errObj.initSlack()
+
+    # Run our analysis ingest program
+    ingestObj = ioMod.ingestObj()
+    ingestObj.ingestAnalysis(analysisMeta,dateObj,ioObj,errObj)
     
 if __name__ == "__main__":
     main()
