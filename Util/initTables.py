@@ -5,8 +5,13 @@
 # - Analysis values from model runs along with observations for analysis
 
 import psycopg2
-from Core import dbMod
+import os
 import sys
+
+cwd = os.getcwd()
+parentWd = os.path.dirname(cwd)
+sys.path.append(parentWd)
+from Core import dbMod
 
 def main():
     """
@@ -72,3 +77,6 @@ def main():
     dbObj.create_table(cmd)
 
     # Create our analysis tables
+
+if __name__ == "__main__":
+    main()
