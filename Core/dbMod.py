@@ -46,17 +46,19 @@ class dbObj:
         """
         Function to quickly create a table given a command provided. 
         """
-        try:
-            self.dbCursor.execute(cmd)
-        except:
-            print("Unable to create table for command: " + cmd)
-            sys.exit(-1)
+        self.dbCursor.execute(cmd)
+        self.dbConn.commit()
+        #try:
+        #    self.dbCursor.execute(cmd)
+        #except:
+        #    print("Unable to create table for command: " + cmd)
+        #    sys.exit(-1)
 
-        try:
-            self.dbConn.commit()
-        except:
-            print("Unable to commit commit transaction for cmd: " + cmd)
-            sys.exit(-1)
+        #try:
+        #    self.dbConn.commit()
+        #except:
+        #    print("Unable to commit commit transaction for cmd: " + cmd)
+        #    sys.exit(-1)
 
     def close(self):
         """

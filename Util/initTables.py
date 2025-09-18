@@ -34,6 +34,7 @@ def main():
     );
     """
     dbObj.create_table(cmd)
+    print("Successfully created station_meta_streamflow table!")
 
     cmd = """
     CREATE TABLE IF NOT EXISTS streamflow_obs (
@@ -42,6 +43,7 @@ def main():
     );
     """
     dbObj.create_table(cmd)
+    print("Successfully created streamflow_obs table!")
 
     # Create our model domain metadata table
     cmd = """
@@ -54,6 +56,7 @@ def main():
     );
     """
     dbObj.create_table(cmd)
+    print("Successfully created model_domain_metadata table!")
 
     # Create our model run table
     cmd = """
@@ -75,6 +78,7 @@ def main():
     );
     """
     dbObj.create_table(cmd)
+    print("Successfully model_run_metadata table!")
 
     # Create our analysis tables
 
