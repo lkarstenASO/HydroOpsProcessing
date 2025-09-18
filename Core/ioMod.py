@@ -12,12 +12,16 @@ class ioObj:
     """
     def __init__(self,args):
         self.asoAwsObject = None
-        self.inspectorLocalDir = "/mnt/data/tomcat/data"
+        self.inspectorLocalDir = "/data/HydroInspector/"
         self.asoHydroBucket = "aso-wrf-hydro"
         self.asoHydroOpsS3 = "Operations"
         self.ftpPath = None
         self.localPath = None
         self.asoS3Path = None
+        if args.hydroInspector is True:
+            self.inspectorFlag = True
+        else:
+            self.inspectorFlag = False
         self.scratchDir = args.scratchDir[0]
 
         try:
@@ -79,6 +83,19 @@ class ioObj:
             return
         if isfile(gzPath):
             remove(gzPath)
+
+    def uploadFile(self,localPath,cloudPath,errObj):
+        """
+        Generic top-level function to uplaod a local file to the cloud
+        """
+        try:
+            self.asoAwsObject.upload_file(localPath,
+                                          self.asoHydroBucket,
+                                          cloudPath)
+        except:
+            errObj.errMsg = "Unable to upload: " + localPath + " to: " + cloudPath
+            remove(localPath)
+            errObj.errOut()
 
 class ingestObj:
     """
@@ -191,15 +208,51 @@ class ingestObj:
                 if isfile(ioObj.scratchDir + "/" + snowhNcFileName):
                     remove(ioObj.scratchDir + "/" + snowhNcFileName)
 
-                #try:
-                gdal.Translate(
-                    ioObj.scratchDir + "/" + sneqvNcFileName,
-                    ioObj.scratchDir + "/" + sneqvDatFileName,
-                    format="NETCDF",
-                    outputSRS='+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs',
-                    noData="-9999",
-                    outputBounds=[-124.73333333, 52.87500000, -66.94166667, 24.95000000]
-                )
-                #except:
-                #    errObj.errMsg = "Unable to convert SNODAS SNEQV to NetCDF for: " + dateObj.currentAnalysisDate.strftime('%Y-%m-%d')
-                #    errObj.errOut()
+                try:
+                    gdal.Translate(
+                        ioObj.scratchDir + "/" + sneqvNcFileName,
+                        ioObj.scratchDir + "/" + sneqvDatFileName,
+                        format="NETCDF",
+                        outputSRS='+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs',
+                        noData="-9999",
+                        outputBounds=[-124.73333333, 52.87500000, -66.94166667, 24.95000000]
+                    )
+                except:
+                    errObj.errMsg = "Unable to convert SNODAS SNEQV to NetCDF for: " + dateObj.currentAnalysisDate.strftime('%Y-%m-%d')
+                    errObj.errOut()
+
+                # Ensure our expected file is present. 
+                if not isfile(sneqvNcFileName):
+                    errObj.errMs = "Expected local file: " + sneqvNcFileName + " not found."
+                    errObj.errOut()
+
+                try:
+                    gdal.Translate(
+                        ioObj.scratchDir + "/" + snowhNcFileName,
+                        ioObj.scratchDir + "/" + snowhDatFileName,
+                        format="NETCDF",
+                        outputSRS='+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs',
+                        noData="-9999",
+                        outputBounds=[-124.73333333, 52.87500000, -66.94166667, 24.95000000]
+                    )
+                except:
+                    errObj.errMsg = "Unable to convert SNODAS SNOWH to NetCDF for: " + dateObj.currentAnalysisDate.strftime('%Y-%m-%d')
+                    errObj.errOut()
+
+                # Ensure our epxected file is prsent. 
+                if not isfile(snowhNcFileName):
+                    errObj.errMsg = "Expected local file: " + snowhNcFileName + " not found."
+                    errObj.errOut()
+
+                # Upload our Conus NetCDF files to the cloud operations directory
+                cloudPath = ioObj.asoHydroOpsS3 + "/Gridded_Analysis/SNODAS/Conus/SNEQV/" + \
+                            dateObj.currentAnalysisDate.strftime('%Y%m') + "/" + sneqvNcFileName
+                
+                ioObj.uploadFile(sneqvNcFileName,cloudPath,errObj)
+
+                # Upload our Conus NetCDF files to the cloud operations directory
+                cloudPath = ioObj.asoHydroOpsS3 + "/Gridded_Analysis/SNODAS/Conus/SNOWH/" + \
+                            dateObj.currentAnalysisDate.strftime('%Y%m') + "/" + snowhNcFileName
+                
+                ioObj.uploadFile(sneqvNcFileName,cloudPath,errObj)
+                 
