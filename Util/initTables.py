@@ -74,7 +74,7 @@ def main():
         num_ens_members INTEGER,
         forcing INTEGER,
         supp_forcing_precip INTEGER,
-        physics_config INTEGER,
+        physics_config INTEGER
     );
     """
     dbObj.create_table(cmd)
