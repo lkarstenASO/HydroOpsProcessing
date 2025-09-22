@@ -11,8 +11,6 @@ class dateObj:
         self.begProcWindow = None
         self.endProcWindow = None
         self.lookbackHours = None
-        self.obsDt = None # Seconds
-        self.nObsSteps = None
         self.analysisDt = None # Seconds
         self.nAnalysisSteps = None
         self.analysisLagDt = None # Seconds

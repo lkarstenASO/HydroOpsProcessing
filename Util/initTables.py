@@ -39,7 +39,8 @@ def main():
     cmd = """
     CREATE TABLE IF NOT EXISTS streamflow_obs (
         id INTEGER,
-        discharge TIMESTAMPTZ
+        obs_date TIMESTAMPTZ,
+        discharge FLOAT
     );
     """
     dbObj.create_table(cmd)
@@ -78,7 +79,7 @@ def main():
     );
     """
     dbObj.create_table(cmd)
-    print("Successfully model_run_metadata table!")
+    print("Successfully created model_run_metadata table!")
 
     # Create our analysis tables
 
