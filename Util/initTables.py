@@ -62,28 +62,69 @@ def main():
     dbObj.create_table(cmd)
     print("Successfully created model_domain_metadata table!")
 
-    # Create our model run table
+    # Create our physics configuration table. 
     cmd = """
-    CREATE TABLE IF NOT EXISTS model_run_metadata(
+    CREATE TABLE IF NOT EXISTS model_physics_config (
         id SERIAL PRIMARY KEY,
         name VARCHAR(64),
-        retro_flag BOOL,
-        ana_flag BOOL,
-        fcst_flag BOOL,
-        ensemble_flag BOOL,
-        forcing_source INTEGER,
-        retro_beg_date TIMESTAMPTZ,
-        retro_end_date TIMESTAMPTZ,
-        fcst_cycle_date TIMESTAMPTZ,
-        fcst_hours INTEGER,
-        num_ens_members INTEGER,
-        forcing INTEGER,
-        supp_forcing_precip INTEGER,
-        physics_config INTEGER
+        forcing_timestep_hours INTEGER,
+        lsm_timestep_hours INTEGER,
+        num_soil_layers INTEGER,
+        rstrt_swc INTEGER,
+        subrtswcrt INTEGER,
+        ovrtswcrt INTEGER,
+        rt_option INTEGER,
+        channrtswcrt INTEGER,
+        channel_option INTEGER,
+        dtrt_ch INTEGER,
+        dtrt_ter INTEGER,
+        soil_override INTEGER,
+        compound_channel BOOL,
+        gwbaseswcrt INTEGER,
+        bucket_loss INTEGER,
+        udmp_opt INTEGER,
+        imperv_adj INTEGER,
+        dyn_veg_opt INTEGER,
+        can_stom_res_opt INTEGER,
+        btr_opt INTEGER,
+        runoff_opt INTEGER,
+        sfc_drag_opt INTEGER,
+        frozen_soil_opt INTEGER,
+        supercool_water_opt INTEGER,
+        rad_transfer_opt INTEGER,
+        snow_albedo_opt INTEGER,
+        pcp_partition_opt INTEGER,
+        tbot_opt INTEGER,
+        temp_time_scheme INTEGER,
+        glacier_opt INTEGER,
+        sfc_res_opt INTEGER,
+        imperv_opt INTEGER,
+        lsm_only BOOL
     );
     """
-    dbObj.create_table(cmd)
-    print("Successfully created model_run_metadata table!")
+
+    # Create our model run table
+    #cmd = """
+    #CREATE TABLE IF NOT EXISTS model_run_metadata(
+    #    id SERIAL PRIMARY KEY,
+    #    name VARCHAR(64),
+    #    retro_flag BOOL,
+    #    ana_flag BOOL,
+    #    fcst_flag BOOL,
+    #    ensemble_flag BOOL,
+    #    forcing_source INTEGER,
+    #    retro_beg_date TIMESTAMPTZ,
+    #    retro_end_date TIMESTAMPTZ,
+    #    fcst_cycle_date TIMESTAMPTZ,
+    #    fcst_hours INTEGER,
+    #    num_ens_members INTEGER,
+    #    forcing INTEGER,
+    #    supp_forcing_precip INTEGER,
+    #    physics_config INTEGER
+    #);
+    #"""
+    #dbObj.create_table(cmd)
+    #print("Successfully created model_run_metadata table!")
 
     # Create our analysis tables
 
