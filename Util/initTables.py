@@ -102,6 +102,8 @@ def main():
         lsm_only BOOL
     );
     """
+    dbObj.create_table(cmd)
+    print("Successfully created model_physics_config table!")
 
     # Create our model run table
     #cmd = """
