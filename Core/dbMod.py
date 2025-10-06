@@ -1,6 +1,7 @@
 import os
 import sys
 import psycopg2
+import getpass
 
 class dbObj:
     """
@@ -18,7 +19,7 @@ class dbObj:
             pwdTmp = os.environ['HYDRO_DB_PWD']
         except KeyError:
             try:
-                pwdTmp = input("Enter Database Password:")
+                pwdTmp = getpass.getpass("Enter Database Password:")
             except:
                 print("Error in user input")
                 sys.exit(-1)
