@@ -105,6 +105,28 @@ def main():
     dbObj.create_table(cmd)
     print("Successfully created model_physics_config table!")
 
+    # Create our forcing ingest tables
+    cmd = """
+    CREATE TABLE IF NOT EXISTS forcing_ingest_metadata(
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(32),
+        key_lookup INTEGER,
+        data_format VARCHAR(16),
+        ftp_source BOOL,
+        aws_s3_source BOOL,
+        ftp_url VARCHAR(256),
+        s3_source_bucket VARCHAR(64),
+        s3_source_directory VARCHAR(128),
+        s3_login_req BOOL,
+        cycle_freq INTEGER,
+        forcing_freq INTEGER,
+        cycle_duration INTEGER,
+        t0_flag BOOL,
+        s3_out_dir VARCHAR(128),
+        enforce_flag BOOL
+    );
+    """
+
     # Create our model run table
     #cmd = """
     #CREATE TABLE IF NOT EXISTS model_run_metadata(
