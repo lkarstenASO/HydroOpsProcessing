@@ -126,6 +126,8 @@ def main():
         enforce_flag BOOL
     );
     """
+    dbObj.create_table(cmd)
+    print("Successfully created forcing_ingest_metadata table!")
 
     # Create our model run table
     #cmd = """
