@@ -122,8 +122,7 @@ def main():
         forcing_freq INTEGER,
         cycle_duration INTEGER,
         t0_flag BOOL,
-        s3_out_dir VARCHAR(128),
-        enforce_flag BOOL
+        s3_out_dir VARCHAR(128)
     );
     """
     dbObj.create_table(cmd)
