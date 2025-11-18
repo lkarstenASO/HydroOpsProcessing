@@ -105,7 +105,7 @@ def main():
     dbObj.create_table(cmd)
     print("Successfully created model_physics_config table!")
 
-    # Create our forcing ingest tables
+    # Create our forcing ingest metadata table
     cmd = """
     CREATE TABLE IF NOT EXISTS forcing_ingest_metadata(
         id SERIAL PRIMARY KEY,
@@ -129,6 +129,19 @@ def main():
     """
     dbObj.create_table(cmd)
     print("Successfully created forcing_ingest_metadata table!")
+
+    # Create our forcing entry table
+    cmd = """
+    CREATE TABLE IF NOT EXISTS forcing_ingest_entry(
+        id SERIAL PRIMARY KEY,
+        key_lookup INTEGER,
+        retro_flag BOOL,
+        cycle_date TIMESTAMPTZ,
+        forecast_date TIMESTAMPTZ,
+        forecast_hour INTEGER,
+        s3_dir VARCHAR(256)
+    );
+    """
 
     # Create our model run table
     #cmd = """
