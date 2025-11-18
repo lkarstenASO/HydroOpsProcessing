@@ -135,13 +135,15 @@ def main():
     CREATE TABLE IF NOT EXISTS forcing_ingest_entry(
         id SERIAL PRIMARY KEY,
         key_lookup INTEGER,
-        retro_flag BOOL,
+        reanalysis_flag BOOL,
         cycle_date TIMESTAMPTZ,
         forecast_date TIMESTAMPTZ,
         forecast_hour INTEGER,
         s3_dir VARCHAR(256)
     );
     """
+    dbObj.create_table(cmd)
+    print("Successfully created forcing_ingest_entry table!")
 
     # Create our model run table
     #cmd = """
