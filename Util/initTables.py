@@ -52,6 +52,7 @@ def main():
         id SERIAL PRIMARY KEY,
         name VARCHAR(64),
         s3_domain_dir VARCHAR(512),
+        operations_flag BOOL,
         dx_land INTEGER,
         dx_hydro INTEGER,
         lake_flag BOOL,
