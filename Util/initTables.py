@@ -56,7 +56,12 @@ def main():
         dx_hydro INTEGER,
         lake_flag BOOL,
         reach_based_stack BOOL,
-        operations_flag BOOL
+        version_label VARCHAR(64),
+        parent_domain_id INTEGER,
+        parent_domain_x1 INTEGER,
+        parent_domain_x2 INTEGER,
+        parent_domain_y1 INTEGER,
+        parent_domain_y2 INTEGER
     );
     """
     dbObj.create_table(cmd)
