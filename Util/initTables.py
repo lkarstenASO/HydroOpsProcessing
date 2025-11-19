@@ -62,7 +62,9 @@ def main():
         parent_domain_x1 INTEGER,
         parent_domain_x2 INTEGER,
         parent_domain_y1 INTEGER,
-        parent_domain_y2 INTEGER
+        parent_domain_y2 INTEGER,
+        bsi_flag BOOL,
+        bsi_age_epoch TIMESTAMPTZ
     );
     """
     dbObj.create_table(cmd)
