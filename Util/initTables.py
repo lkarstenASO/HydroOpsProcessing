@@ -170,6 +170,8 @@ def main():
         s3_dir VARCHAR(256)
     );
     """
+    dbObj.create_table(cmd)
+    print("Successfully created forcing_engine_entry table!")
 
     # Create our model run table
     #cmd = """
