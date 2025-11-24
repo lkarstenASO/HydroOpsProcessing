@@ -153,6 +153,24 @@ def main():
     dbObj.create_table(cmd)
     print("Successfully created forcing_ingest_entry table!")
 
+    # Create our forcing processing table to keep track of what's 
+    # been processed, etc. 
+    cmd = """
+    CREATE TABLE IF NOT EXISTS forcing_engine_entry(
+        id SERIAL PRIMARY KEY,
+        key_lookup INTEGER,
+        domain_id INTEGER,
+        spatial_method INTEGER,
+        supp_pcp_flag BOOL,
+        bsi_flag BOOL,
+        reanalysis_flag BOOL,
+        cycle_date TIMESTAMPTZ,
+        forecast_date TIMESTAMPTZ,
+        pcp_bias_adj BOOL,
+        s3_dir VARCHAR(256)
+    );
+    """
+
     # Create our model run table
     #cmd = """
     #CREATE TABLE IF NOT EXISTS model_run_metadata(
