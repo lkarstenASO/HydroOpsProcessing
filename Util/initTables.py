@@ -186,7 +186,7 @@ def main():
         fcst_flag BOOL,
         operations_flag BOOL,
         forcing_source INTEGER[],
-        supp_pcp_source INTEGER[]
+        supp_pcp_source INTEGER[],
         retro_beg_date TIMESTAMPTZ,
         retro_end_date TIMESTAMPTZ,
         fcst_cycle_freq INTEGER,
