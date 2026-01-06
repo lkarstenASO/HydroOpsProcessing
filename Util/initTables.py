@@ -133,7 +133,8 @@ def main():
         t0_flag BOOL,
         s3_out_dir VARCHAR(128),
         lagHours INTEGER,
-        conversionFlag BOOL
+        conversionFlag BOOL,
+        reanalysisFlag BOOL
     );
     """
     dbObj.create_table(cmd)
@@ -175,27 +176,32 @@ def main():
     print("Successfully created forcing_engine_entry table!")
 
     # Create our model run table
-    #cmd = """
-    #CREATE TABLE IF NOT EXISTS model_run_metadata(
-    #    id SERIAL PRIMARY KEY,
-    #    name VARCHAR(64),
-    #    retro_flag BOOL,
-    #    ana_flag BOOL,
-    #    fcst_flag BOOL,
-    #    ensemble_flag BOOL,
-    #    forcing_source INTEGER,
-    #    retro_beg_date TIMESTAMPTZ,
-    #    retro_end_date TIMESTAMPTZ,
-    #    fcst_cycle_date TIMESTAMPTZ,
-    #    fcst_hours INTEGER,
-    #    num_ens_members INTEGER,
-    #    forcing INTEGER,
-    #    supp_forcing_precip INTEGER,
-    #    physics_config INTEGER
-    #);
-    #"""
-    #dbObj.create_table(cmd)
-    #print("Successfully created model_run_metadata table!")
+    cmd = """
+    CREATE TABLE IF NOT EXISTS model_run_metadata(
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(64),
+        domain_id INTEGER,
+        retro_flag BOOL,
+        ana_flag BOOL,
+        fcst_flag BOOL,
+        operations_flag BOOL,
+        forcing_source INTEGER[],
+        supp_pcp_source INTEGER[]
+        retro_beg_date TIMESTAMPTZ,
+        retro_end_date TIMESTAMPTZ,
+        fcst_cycle_freq INTEGER,
+        fcst_cycle_freq_offset INTEGER,
+        fcst_hours INTEGER,
+        physics_config INTEGER,
+        esp_flag BOOL,
+        beg_esp_mem_year INTEGER,
+        end_esp_mem_year INTEGER,
+        cold_start BOOL,
+        restart_source INTEGER
+    );
+    """
+    dbObj.create_table(cmd)
+    print("Successfully created model_run_metadata table!")
 
     # Create our analysis tables
 
