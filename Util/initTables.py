@@ -155,6 +155,19 @@ def main():
     dbObj.create_table(cmd)
     print("Successfully created forcing_ingest_entry table!")
 
+    # Create a table to store information about reanalysis/retrospective
+    # forcings for a given modeling domain. 
+    cmd = """
+    CREATE TABLE IF NOT EXISTS retro_forcing_entry(
+        id SERIAL PRIMARY KEY,
+        domain_id INTEGER,
+        key_lookup INTEGER,
+        beg_date TIMESTAMPTZ,
+        end_date TIMESTAMPTZ,
+        s3_dir VARCHAR(256)
+    );
+    """
+
     # Create our forcing processing table to keep track of what's 
     # been processed, etc. 
     cmd = """
