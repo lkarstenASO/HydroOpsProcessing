@@ -167,6 +167,8 @@ def main():
         s3_dir VARCHAR(256)
     );
     """
+    dbObj.create_table(cmd)
+    print("Successfully created retro_forcing_entry table!")
 
     # Create our forcing processing table to keep track of what's 
     # been processed, etc. 
