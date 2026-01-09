@@ -133,8 +133,7 @@ def main():
         t0_flag BOOL,
         s3_out_dir VARCHAR(128),
         lagHours INTEGER,
-        conversionFlag BOOL,
-        reanalysisFlag BOOL
+        conversionFlag BOOL
     );
     """
     dbObj.create_table(cmd)
