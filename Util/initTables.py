@@ -195,6 +195,7 @@ def main():
         id SERIAL PRIMARY KEY,
         name VARCHAR(64),
         domain_id INTEGER,
+        io_id INTEGER,
         retro_flag BOOL,
         ana_flag BOOL,
         fcst_flag BOOL,
@@ -216,6 +217,34 @@ def main():
     """
     dbObj.create_table(cmd)
     print("Successfully created model_run_metadata table!")
+
+    # Create our I/O table that will hold output configurations for the model.
+    cmd = """
+    CREATE TABLE IF NOT EXISTS io_metadata(
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(64),
+        lsm_out_freq INTEGER,
+        lsm_rst_freq INTEGER,
+        force_type INTEGER,
+        hydro_out_freq INTEGER,
+        hydro_rst_freq INTEGER,
+        order_to_write INTEGER,
+        io_form_output INTEGER,
+        io_config INTEGER,
+        t0_flag INTEGER,
+        out_channel_influx INTEGER,
+        chrtout_domain INTEGER,
+        chanobs_domain INTEGER,
+        chrtout_grid INTEGER,
+        lsmout_domain INTEGER,
+        rtout_domain INTEGER,
+        output_gw INTEGER,
+        output_lake INTEGER,
+        frxst_pts_out INTEGER
+    );
+    """
+    dbObj.create_table(cmd)
+    print("Successfully created io_metadata table!")
 
     # Create our analysis tables
 
