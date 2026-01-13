@@ -85,6 +85,8 @@ def main():
         rt_option INTEGER,
         channrtswcrt INTEGER,
         channel_option INTEGER,
+        channel_loss INTEGER,
+        lake_opt INTEGER,
         dtrt_ch INTEGER,
         dtrt_ter INTEGER,
         soil_override INTEGER,
