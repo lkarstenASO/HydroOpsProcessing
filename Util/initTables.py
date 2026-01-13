@@ -212,7 +212,8 @@ def main():
         beg_esp_mem_year INTEGER,
         end_esp_mem_year INTEGER,
         cold_start BOOL,
-        restart_source INTEGER
+        restart_source INTEGER,
+        alt_restart_date TIMESTAMPTZ
     );
     """
     dbObj.create_table(cmd)
