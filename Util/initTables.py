@@ -189,7 +189,7 @@ def main():
     dbObj.create_table(cmd)
     print("Successfully created forcing_engine_entry table!")
 
-    # Create our model run table
+    # Create our model run metadata table
     cmd = """
     CREATE TABLE IF NOT EXISTS model_run_metadata(
         id SERIAL PRIMARY KEY,
@@ -217,6 +217,20 @@ def main():
     """
     dbObj.create_table(cmd)
     print("Successfully created model_run_metadata table!")
+
+    # Create our model run entry table to keep track of model progress. 
+    cmd = """
+    CREATE TABLE IF NOT EXISTS model_run_entry(
+        id SERIAL PRIMARY KEY,
+        model_id INTEGER,
+        esp_member INTEGER,
+        beg_cycle_date TIMESTAMPTZ,
+        end_cycle_date TIMESTAMPTZ,
+        last_date_complete TIMESTAMPTZ
+    );
+    """
+    dbObj.create_table(cmd)
+    print("Successfully created model_run_entry table!")
 
     # Create our I/O table that will hold output configurations for the model.
     cmd = """
