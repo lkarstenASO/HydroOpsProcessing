@@ -229,7 +229,9 @@ def main():
         esp_member INTEGER,
         beg_cycle_date TIMESTAMPTZ,
         end_cycle_date TIMESTAMPTZ,
-        last_date_complete TIMESTAMPTZ
+        last_date_complete TIMESTAMPTZ,
+        upload_complete BOOL,
+        model_lock BOOL
     );
     """
     dbObj.create_table(cmd)
