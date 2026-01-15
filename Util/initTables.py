@@ -185,6 +185,7 @@ def main():
         cycle_date TIMESTAMPTZ,
         forecast_date TIMESTAMPTZ,
         pcp_bias_adj BOOL,
+        pcp_adj_factor FLOAT,
         s3_dir VARCHAR(256)
     );
     """
