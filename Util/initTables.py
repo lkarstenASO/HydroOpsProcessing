@@ -266,7 +266,41 @@ def main():
     dbObj.create_table(cmd)
     print("Successfully created io_metadata table!")
 
-    # Create our analysis tables
+    # Create our spatial analysis metadata table. 
+    cmd = """
+    CREATE TABLE IF NOT ESISTS spatial_aoi_metadata(
+        id SERIAL PRIMARY KEY,
+        hydro_id VARCHAR(16),
+        aso_id VARCHAR(16),
+        name VARCHAR(64),
+        domain_id INTEGER,
+        frxst_pt_id INTEGER,
+        notes VARCHAR(512)
+    );
+    """
+
+    ## Create our forecast point metadata table.
+    #cmd = """
+    #CREATE TABLE IF NOT EXISTS frxst_pt_metadata(
+    #    id SERIAL PRIMARY KEY,
+    #    name VARCHAR(64),
+    #    WRF-Hydro_Reach_ID INTEGER,
+    #    obs_id INTEGER
+    #);
+    #"""
+
+    # Create our spatial analysis stats table. 
+    cmd = """
+    CREATE TABLE IF NOT EXISTS spatial_aoi_stats(
+        model_id INTEGER,
+        spatial_id INTEGER,
+        forecast_cycle TIMESTAMPTZ,
+        forecast_date TIMESTAMPTZ,
+        esp_mem_year INTEGER,
+        swe_volume_TAF,
+        soilsat_avg
+    );
+    """
 
 if __name__ == "__main__":
     main()
