@@ -278,6 +278,8 @@ def main():
         notes VARCHAR(512)
     );
     """
+    dbObj.create_table(cmd)
+    print("Successfully created spatial_aoi_metadata table!")
 
     ## Create our forecast point metadata table.
     #cmd = """
@@ -301,6 +303,8 @@ def main():
         soilsat_avg
     );
     """
+    dbObj.create_table(cmd)
+    print("Successfully created spatial_aoi_stats table!")
 
 if __name__ == "__main__":
     main()
