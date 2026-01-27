@@ -289,7 +289,7 @@ def main():
         domain_id INTEGER,
         name VARCHAR(64),
         aoi_id INTEGER,
-        WRF-Hydro_Reach_ID INTEGER,
+        WRF_Hydro_Reach_ID INTEGER,
         obs_id INTEGER
     );
     """
