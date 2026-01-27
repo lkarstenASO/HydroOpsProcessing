@@ -274,7 +274,6 @@ def main():
         aso_id VARCHAR(16),
         name VARCHAR(64),
         domain_id INTEGER,
-        frxst_pt_id INTEGER,
         notes VARCHAR(512)
     );
     """
