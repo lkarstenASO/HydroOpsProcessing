@@ -268,7 +268,7 @@ def main():
 
     # Create our spatial analysis metadata table. 
     cmd = """
-    CREATE TABLE IF NOT ESISTS spatial_aoi_metadata(
+    CREATE TABLE IF NOT EXISTS spatial_aoi_metadata(
         id SERIAL PRIMARY KEY,
         hydro_id VARCHAR(16),
         aso_id VARCHAR(16),
@@ -281,15 +281,20 @@ def main():
     dbObj.create_table(cmd)
     print("Successfully created spatial_aoi_metadata table!")
 
-    ## Create our forecast point metadata table.
-    #cmd = """
-    #CREATE TABLE IF NOT EXISTS frxst_pt_metadata(
-    #    id SERIAL PRIMARY KEY,
-    #    name VARCHAR(64),
-    #    WRF-Hydro_Reach_ID INTEGER,
-    #    obs_id INTEGER
-    #);
-    #"""
+    # Create our forecast point metadata table.
+    cmd = """
+    CREATE TABLE IF NOT EXISTS frxst_pt_metadata(
+        id SERIAL PRIMARY KEY,
+        hydro_id VARCHAR(64),
+        domain_id INTEGER,
+        name VARCHAR(64),
+        aoi_id INTEGER,
+        WRF-Hydro_Reach_ID INTEGER,
+        obs_id INTEGER
+    );
+    """
+    dbObj.create_table(cmd)
+    print("Successfully created frxst_pt_metadata table!")
 
     # Create our spatial analysis stats table. 
     cmd = """
@@ -299,8 +304,8 @@ def main():
         forecast_cycle TIMESTAMPTZ,
         forecast_date TIMESTAMPTZ,
         esp_mem_year INTEGER,
-        swe_volume_TAF,
-        soilsat_avg
+        swe_volume_taf FLOAT,
+        soilsat_avg FLOAT
     );
     """
     dbObj.create_table(cmd)
