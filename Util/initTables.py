@@ -303,7 +303,7 @@ def main():
         model_id INTEGER,
         forecast_cycle TIMESTAMPTZ,
         forecast_date TIMESTAMPTZ,
-        esp_mem_year INTEGER
+        esp_mem_year INTEGER,
         discharge_cfs FLOAT,
         discharge_taf FLOAT
     );
