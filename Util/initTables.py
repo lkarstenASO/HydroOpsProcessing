@@ -295,6 +295,22 @@ def main():
     dbObj.create_table(cmd)
     print("Successfully created frxst_pt_metadata table!")
 
+    # Create our table to hold model streamflow values for forecast points. 
+    cmd = """
+    CREATE TABLE IF NOT EXISTS frxst_pt_streamflow(
+        id SERIAL PRIMARY KEY,
+        frxstPt_id INTEGER,
+        model_id INTEGER,
+        forecast_cycle TIMESTAMPTZ,
+        forecast_date TIMESTAMPTZ,
+        esp_mem_year INTEGER
+        discharge_cfs FLOAT,
+        discharge_taf FLOAT
+    );
+    """
+    dbObj.create_table(cmd)
+    print("Successfully created frxst_pt_streamflow table!")
+
     # Create our spatial analysis stats table. 
     cmd = """
     CREATE TABLE IF NOT EXISTS spatial_aoi_stats(
