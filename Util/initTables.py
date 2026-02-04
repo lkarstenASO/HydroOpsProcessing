@@ -304,8 +304,8 @@ def main():
         forecast_cycle TIMESTAMPTZ,
         forecast_date TIMESTAMPTZ,
         esp_mem_year INTEGER,
-        discharge_cfs FLOAT,
-        discharge_taf FLOAT
+        discharge_cfs FLOAT [],
+        discharge_taf FLOAT []
     );
     """
     dbObj.create_table(cmd)
