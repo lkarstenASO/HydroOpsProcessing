@@ -325,5 +325,24 @@ def main():
     dbObj.create_table(cmd)
     print("Successfully created spatial_aoi_stats table!")
 
+    # Create our ESP frxst pt stats table
+    cmd = """
+    CREATE TABLE IF NOT EXISTS esp_stats(
+        model_id INTEGER,
+        frxstPt_id INTEGER,
+        forecast_cycle TIMESTAMPTZ,
+        beg_date_analysis TIMESTAMPTZ,
+        end_date_analysis TIMESTAMPTZ,
+        mean_taf FLOAT,
+        Q90_taf FLOAT,
+        Q75_taf FLOAT,
+        Q50_taf FLOAT,
+        Q25_taf FLOAT,
+        Q10_taf FLOAT
+    );
+    """
+
+    # Create our ESP Monthly stats table
+
 if __name__ == "__main__":
     main()
