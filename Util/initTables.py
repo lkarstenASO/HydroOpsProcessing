@@ -341,6 +341,8 @@ def main():
         Q10_taf FLOAT
     );
     """
+    dbObj.create_table(cmd)
+    print("Successfully created esp_stats table!")
 
     # Create our ESP Monthly stats table
 
