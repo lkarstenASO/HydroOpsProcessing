@@ -344,7 +344,16 @@ def main():
     dbObj.create_table(cmd)
     print("Successfully created esp_stats table!")
 
-    # Create our ESP Monthly stats table
+    # Create our AnA Value Table
+    cmd = """
+    CREATE TABLE IF NOT EXISTS ana_streamflow(
+        model_id INTEGER,
+        frxstPt_id INTEGER,
+        date_analysis TIMESTAMPTZ,
+        analysis_streamflow_cfs FLOAT,
+        obs_flag BOOL
+    );
+    """
 
 if __name__ == "__main__":
     main()
