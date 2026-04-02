@@ -354,6 +354,8 @@ def main():
         obs_flag BOOL
     );
     """
+    dbObj.create_table(cmd)
+    print("Successfully created ana_streamflow table!")
 
 if __name__ == "__main__":
     main()
