@@ -351,6 +351,7 @@ def main():
         frxstPt_id INTEGER,
         date_analysis TIMESTAMPTZ,
         analysis_streamflow_cfs FLOAT,
+        analysis_streamvol_taf FLOAT,
         obs_flag BOOL
     );
     """
